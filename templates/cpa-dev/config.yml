@@ -1,6 +1,7 @@
 name: cpa-dev
 description: |
   Cpa development environment
-version: 0.1-rancher1
+version: "v0.0.1"
 category: Applications
+projectURl: "https://github.com/ejplatform/ej-rancher-catalog/"
 license: AGPL v3
