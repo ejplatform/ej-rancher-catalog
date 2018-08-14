@@ -1,0 +1,41 @@
+version: "2"
+
+volumes:
+  db_data:
+  media:
+
+
+services:
+  web:
+    restart: always
+    image: ejplatform/web:latest
+    ports:
+      - "5000:8000"
+    links:
+      - postgres:postgres
+      - redis:redis
+    environment:
+      - DJANGO_ENVIRONMENT=production
+    volumes:
+      - media:/app/local/media/
+    working_dir: /app
+    command: db -m run-deploy
+
+
+  nginx:
+    restart: always
+    image: ejplatform/nginx:latest
+    volumes:
+      - /usr/share/nginx/html/media
+    links:
+      - web:django
+
+  postgres:
+    restart: always
+    image: postgres:9.6
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    restart: always
+    image: redis:3
