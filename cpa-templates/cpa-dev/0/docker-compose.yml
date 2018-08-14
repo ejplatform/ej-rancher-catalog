@@ -53,7 +53,7 @@ services:
 
   redis:
     image: redis:3
-
+  
   postgres:
     image: postgres:alpine
     environment:
@@ -62,3 +62,20 @@ services:
       POSTGRES_PASSWORD: ${database_password}
     volumes:
       - database:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo
+    command: mongod,--smallfiles,--oplogSize,128
+    volumes:
+      - /home/ejcpa/rocket/mongo:/data/db
+
+  rocketchat:
+    image: rocketchat/rocket.chat:latest
+    environment:
+      - MONGO_URL: mongodb://mongo:27017/rocketchat
+    labels:
+      - rap.port: 3000
+      - rap.le_host: talks.cpa.dev.ejplatform.org
+      - rap.host: talks.cpa.dev.ejplatform.org  	
+    ports:
+      - 0.0.0.0:3001:3000/tcp
