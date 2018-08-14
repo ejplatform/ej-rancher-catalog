@@ -41,3 +41,11 @@ services:
   postgres:
     scale: 1
     start_on_create: true
+  
+  mongo:
+    scale: 1
+    start_on_create: true
+
+  rocketchat:
+    scale: 1
+    start_on_create: true
