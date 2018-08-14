@@ -1,0 +1,6 @@
+name: ej-production
+description: |
+  EJ-Production environment
+version: 0.1-rancher1
+category: Applications
+license: AGPL v3

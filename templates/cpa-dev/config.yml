@@ -1,0 +1,6 @@
+name: cpa-dev
+description: |
+  Cpa development environment
+version: 0.1-rancher1
+category: Applications
+license: AGPL v3
