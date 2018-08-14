@@ -13,14 +13,14 @@ services:
     labels:
       rap.le_email: dev@ejplatform.org
       rap.le_test: 'false'
-      rap.le_host: dev.ejplatform.org
-      rap.host: dev.ejplatform.org
+      rap.le_host: cpa.dev.ejplatform.org
+      rap.host: cpa.dev.ejplatform.org
       rap.client_max_body_size: 200m
       io.rancher.container.create_agent: 'true'
       io.rancher.container.agent.role: environmentAdmin
 
   nginx:
-    image: mdhcpa/nginx:latest
+    image: ejplatform/nginx:latest
     volumes:
       - media:/usr/share/nginx/html/
     links:
@@ -36,20 +36,15 @@ services:
       DJANGO_ALLOWED_HOSTS: cpa.dev.ejplatform.org
       DJANGO_DEBUG: 'true'
     volumes:
-      - media:/app/local/:nocopy
+      - media:/app/local/
     links:
       - postgres:postgres
       - redis:redis
-    command: db -m collect gunicorn
+    command: db -m gunicorn
     labels:
       io.rancher.scheduler.affinity: ${affinity_host}
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
-
-  rescue:
-    << : *web
-    restart: no
-    command: bash
 
   redis:
     image: redis:3
@@ -65,17 +60,18 @@ services:
 
   mongo:
     image: mongo
-    command: mongod,--smallfiles,--oplogSize,128
+    # FIXME: Command not found on rancher, old mongo used it  
+    # command: mongod,--smallfiles,--oplogSize,128
     volumes:
       - /home/ejcpa/rocket/mongo:/data/db
 
   rocketchat:
     image: rocketchat/rocket.chat:latest
     environment:
-      - MONGO_URL: mongodb://mongo:27017/rocketchat
+      MONGO_URL: mongodb://mongo:27017/rocketchat
     labels:
-      - rap.port: 3000
-      - rap.le_host: talks.cpa.dev.ejplatform.org
-      - rap.host: talks.cpa.dev.ejplatform.org  	
+      rap.port: 3000
+      rap.le_host: talks.cpa.dev.ejplatform.org
+      rap.host: talks.cpa.dev.ejplatform.org  	
     ports:
       - 0.0.0.0:3001:3000/tcp

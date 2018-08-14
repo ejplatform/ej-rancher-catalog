@@ -30,14 +30,18 @@ services:
     scale: 1
     start_on_create: true
 
-  bash:
-    scale: 1
-    start_on_create: true
-
   redis:
     scale: 1
     start_on_create: true
 
   postgres:
+    scale: 1
+    start_on_create: true
+
+  mongo:
+    scale: 1
+    start_on_create: true
+
+  rocketchat:
     scale: 1
     start_on_create: true
