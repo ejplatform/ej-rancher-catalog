@@ -22,27 +22,27 @@ services:
   nginx:
     image: ejplatform/nginx:latest
     volumes:
-    - media:/usr/share/nginx/html/
+      - media:/usr/share/nginx/html/
     links:
-    - web:web
+      - web:web
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity: ****
+      io.rancher.scheduler.affinity: ${affinity_host}
 
   web: &web
     image: ejplatform/web:latest
     environment:
-      DJANGO_DB_URL: psql://ej:****@postgres:5432/ej
-      DJANGO_ALLOWED_HOSTS: dev.ejplatform.org
+      DJANGO_DB_URL: psql://ej:${database_password}@postgres:5432/ej
+      DJANGO_ALLOWED_HOSTS: ejplatform.org
       DJANGO_DEBUG: 'true'
     volumes:
-    - media:/app/local/:nocopy
+      - media:/app/local/:nocopy
     links:
-    - postgres:postgres
-    - redis:redis
+      - postgres:postgres
+      - redis:redis
     command: db -m collect gunicorn
     labels:
-      io.rancher.scheduler.affinity: ****
+      io.rancher.scheduler.affinity: ${affinity_host}
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
 
@@ -59,6 +59,6 @@ services:
     environment:
       POSTGRES_DB: ej
       POSTGRES_USER: ej
-      POSTGRES_PASSWORD: ****
+      POSTGRES_PASSWORD: ${database_password}
     volumes:
-    - database:/var/lib/postgresql/data
+      - database:/var/lib/postgresql/data
