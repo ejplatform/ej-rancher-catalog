@@ -36,24 +36,19 @@ services:
       DJANGO_ALLOWED_HOSTS: dev.ejplatform.org
       DJANGO_DEBUG: 'true'
     volumes:
-      - media:/app/local/:nocopy
+      - media:/app/local/
     links:
       - postgres:postgres
       - redis:redis
-    command: db -m collect gunicorn
+    command: db -m gunicorn
     labels:
       io.rancher.scheduler.affinity: ${affinity_host}
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
 
-  rescue:
-    << : *web
-    restart: no
-    command: bash
-
   redis:
     image: redis:3
-
+  
   postgres:
     image: postgres:alpine
     environment:
