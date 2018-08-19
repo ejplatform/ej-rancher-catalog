@@ -4,7 +4,7 @@ catalog:
   name: EJ Platform
   description: |
     EJ Platform Environment
-  version: 1.0-rancher1
+  version: 1.0-rancher2
   minimum_rancher_version: v1.0.0
   maintainer: "Fábio Macêdo Mendes <fabiommendes@gmail.com>"
   uuid: ejprod
