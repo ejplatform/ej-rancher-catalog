@@ -2,6 +2,7 @@ version: '2'
 
 volumes:
   database:
+  sqlite:
   media:
   conf:
 
@@ -22,7 +23,7 @@ services:
   nginx:
     image: ejplatform/nginx:latest
     volumes:
-      - media:/usr/share/nginx/html/
+      - media:/usr/share/nginx/html/:nocopy
     links:
       - web:web
     labels:
@@ -31,18 +32,19 @@ services:
   web: &web
     image: ejplatform/web:latest
     environment:
-      DJANGO_DB_URL: psql://ej:"${database_password}"@postgres:5432/ej
+      DJANGO_DB_URL: psql://ej:${database_password}@postgres:5432/ej
       DJANGO_ALLOWED_HOSTS: ${hostname}
       DJANGO_DEBUG: 'true'
       HOSTNAME: ${hostname}
       COUNTRY: ${country}
       DEBUG: ${debug}
     volumes:
-      - media:/app/local/:nocopy
+      - media:/app/local/
+      - sqlite:/app/db/
     links:
       - postgres:postgres
       - redis:redis
-    command: db -m collect gunicorn
+    command: collect db -m gunicorn
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
@@ -50,6 +52,8 @@ services:
   rescue:
     << : *web
     command: bash
+    user: root
+    tty: true
 
   redis:
     image: redis:3

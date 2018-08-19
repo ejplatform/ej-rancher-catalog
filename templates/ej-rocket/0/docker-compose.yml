@@ -32,7 +32,7 @@ services:
   web: &web
     image: ejplatform/web:latest
     environment:
-      DJANGO_DB_URL: psql://ej:"${database_password}"@postgres:5432/ej
+      DJANGO_DB_URL: psql://ej:${database_password}@postgres:5432/ej
       DJANGO_ALLOWED_HOSTS: ${hostname}
       DJANGO_DEBUG: 'true'
       EJ_ROCKETCHAT_INTEGRATION: 'true'
