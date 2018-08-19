@@ -1,60 +1,54 @@
 version: '2'
 
 catalog:
-  name: EJ Platform with Rocketchat
+  name: EJ Platform
   description: |
-    EJ Platform Environment with Rocketchat integration
+    EJ Platform Environment
   version: 0.1-rancher0
   minimum_rancher_version: v1.0.0
   maintainer: "Fábio Macêdo Mendes <fabiommendes@gmail.com>"
-  uuid: rc_ejplatform
+  uuid: ejplatform
   questions:
-  - variable: hostname
-    label: Hostname
-    description: "Hostname of the website (e.g.: ejplatform.org)"
-    default: ejplatform.org
-    required: true
-    type: string
-  - variable: database_password
-    label: Database password
-    description: What is the database password?
-    default: ejplatform
-    required: true
-    type: password
-  - variable: country
-    label: Country
-    description: Controls localization settings
-    default: Brasil
-    required: true
-    type: string
-  - variable: debug
-    label: Enable debug settings?
-    description: "WARNING: only enable debug mode in staging environments."
-    default: false
-    required: true
-    type: boolean
+    - variable: hostname
+      label: Hostname
+      description: "Hostname of the website (e.g.: ejplatform.org)"
+      default: ejplatform.org
+      required: true
+      type: string
+    - variable: database_password
+      label: Database password
+      description: What is the database password?
+      default: ejplatform
+      required: true
+      type: password
+    - variable: country
+      label: Country
+      description: Controls localization settings
+      default: Brasil
+      required: true
+      type: string
+    - variable: debug
+      label: Enable debug settings?
+      description: "WARNING: only enable debug mode in staging environments."
+      default: false
+      required: true
+      type: boolean
+    - variable: rancher_host
+      description: "Sets the Rancher Host Affinity"
+      label: "Rancher Host"
+      required: true
+      type: string
+    - variable: volume_driver
+      description: "Choose the Volume Driver being used.(Option: local or rancher-nfs)"
+      label: "Volume Driver"
+      required: true
+      default: local
+      type: "enum"
+      options:
+        - local
+        - rancher-nfs
 
 services:
-  loadbalancer:
-    scale: 1
-    start_on_create: true
-    lb_config:
-      certs: []
-      port_rules:
-      - priority: 1
-        protocol: http
-        service: nginx
-        source_port: 80
-        target_port: 80
-    health_check:
-      healthy_threshold: 2
-      response_timeout: 2000
-      port: 42
-      unhealthy_threshold: 3
-      initializing_timeout: 60000
-      interval: 2000
-      reinitializing_timeout: 60000
-
   nginx:
     scale: 1
     start_on_create: true
@@ -64,7 +58,7 @@ services:
     scale: 1
     start_on_create: true
 
-  bash:
+  rescue:
     scale: 1
     start_on_create: true
 
@@ -73,5 +67,13 @@ services:
     start_on_create: true
 
   postgres:
+    scale: 1
+    start_on_create: true
+
+  mongo:
+    scale: 1
+    start_on_create: true
+
+  rocketchat:
     scale: 1
     start_on_create: true
