@@ -1,6 +1,6 @@
-name: ej-production
+name: EJ Platform
 description: |
-  EJ-Production environment
+  EJ Production environment. This is the standard version of the EJ platform.
 version: 0.1-rancher1
 category: Applications
 license: AGPL v3

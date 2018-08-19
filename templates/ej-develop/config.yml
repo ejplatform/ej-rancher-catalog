@@ -1,6 +1,6 @@
-name: ej-development
+name: EJ Platform (staging)
 description: |
-  EJ-Development environment
+  EJ Development environment. Use for testing only.
 version: 0.1-rancher1
 category: Applications
 license: AGPL v3
