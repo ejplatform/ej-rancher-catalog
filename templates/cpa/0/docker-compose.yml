@@ -26,7 +26,7 @@ services:
       io.rancher.scheduler.affinity: ${rancher_host}
 
   web: &web
-    image: ejplatform/web:latest
+    image: mdhcpa/web:latest
     environment:
       DJANGO_DB_URL: psql://ej:${database_password}@postgres:5432/ej
       DJANGO_ALLOWED_HOSTS: ${hostname}

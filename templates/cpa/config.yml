@@ -1,0 +1,7 @@
+name: EJ/CPA instance
+description: |
+  CPA/MDH instance of the EJ Platform
+version: 0.1-rancher0
+category: Applications
+projectURl: "https://github.com/ejplatform/ej-server/"
+license: AGPL v3
