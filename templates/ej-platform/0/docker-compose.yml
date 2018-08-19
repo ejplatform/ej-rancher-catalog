@@ -23,6 +23,7 @@ services:
       rap.client_max_body_size: 200m
       io.rancher.container.create_agent: 'true'
       io.rancher.container.agent.role: environmentAdmin
+      io.rancher.scheduler.affinity: ${rancher_host}
 
   nginx:
     image: ejplatform/nginx:latest
@@ -32,6 +33,7 @@ services:
       - web:web
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity: ${rancher_host}
 
   web: &web
     image: ejplatform/web:latest
@@ -52,6 +54,7 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity: ${rancher_host}
 
   rescue:
     << : *web
@@ -62,9 +65,12 @@ services:
       io.rancher.container.start_once: 'true'
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity: ${rancher_host}
 
   redis:
     image: redis:3
+    labels:
+      io.rancher.scheduler.affinity: ${rancher_host}
 
   postgres:
     image: postgres:alpine
@@ -74,3 +80,5 @@ services:
       POSTGRES_PASSWORD: ${database_password}
     volumes:
       - database:/var/lib/postgresql/data
+    labels:
+      io.rancher.scheduler.affinity: ${rancher_host}

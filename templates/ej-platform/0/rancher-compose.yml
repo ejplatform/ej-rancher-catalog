@@ -33,6 +33,11 @@ catalog:
       default: false
       required: true
       type: boolean
+    - variable: rancher_host
+      description: "Sets the Rancher Host Affinity"
+      label: "Rancher Host"
+      required: true
+      type: string
     - variable: volume_driver
       description: "Choose the Volume Driver being used.(Option: local or rancher-nfs)"
       label: "Volume Driver"
