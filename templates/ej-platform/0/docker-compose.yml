@@ -11,18 +11,18 @@ volumes:
     driver: ${volume_driver}
 
 services:
-#  lb:
-#    image: rancher/lb-service-haproxy:v0.7.6
-#    expose:
-#    - 80:80/tcp
-#    labels:
-#      rap.le_email: help@${hostname}
-#      rap.le_test: 'false'
-#      rap.le_host: ${hostname}
-#      rap.host: ${hostname}
-#      rap.client_max_body_size: 200m
-#      io.rancher.container.create_agent: 'true'
-#      io.rancher.container.agent.role: environmentAdmin
+  lb:
+    image: rancher/lb-service-haproxy:v0.7.6
+    expose:
+    - 80:80/tcp
+    labels:
+      rap.le_email: help@${hostname}
+      rap.le_test: 'false'
+      rap.le_host: ${hostname}
+      rap.host: ${hostname}
+      rap.client_max_body_size: 200m
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.agent.role: environmentAdmin
 
   nginx:
     image: ejplatform/nginx:latest
