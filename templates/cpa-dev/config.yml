@@ -3,5 +3,5 @@ description: |
   Cpa development environment
 version: "v0.0.1"
 category: Applications
-projectURl: "https://github.com/ejplatform/ej-rancher-catalog/"
+projectURl: "https://github.com/ejplatform/ej-server/"
 license: AGPL v3
