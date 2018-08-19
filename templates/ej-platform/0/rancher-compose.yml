@@ -33,6 +33,15 @@ catalog:
       default: false
       required: true
       type: boolean
+    - variable: volume_driver
+      description: "Choose the Volume Driver being used.(Option: local or rancher-nfs)"
+      label: "Volume Driver"
+      required: true
+      default: local
+      type: "enum"
+      options:
+        - local
+        - rancher-nfs
 
 services:
   loadbalancer:
