@@ -1,0 +1,8 @@
+name: EJ Platform with Rocketchat integration
+description: |
+  This stack contains a standard EJ Platform installation integrated with
+  Rocketchat.
+version: 0.1-rancher0
+category: Applications
+projectURl: "https://github.com/ejplatform/ej-server/"
+license: AGPL v3

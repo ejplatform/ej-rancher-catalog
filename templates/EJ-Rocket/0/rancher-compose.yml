@@ -1,20 +1,36 @@
 version: '2'
 
 catalog:
-  name: EJ Platform
+  name: EJ Platform with Rocketchat
   description: |
-    EJ Platform Environment
-  version: 1.0-rancher1
+    EJ Platform Environment with Rocketchat integration
+  version: 0.1-rancher0
   minimum_rancher_version: v1.0.0
   maintainer: "Fábio Macêdo Mendes <fabiommendes@gmail.com>"
-  uuid: ejprod
+  uuid: ejplatform-rc-0
   questions:
     - variable: database_password
       label: What is the database password?
-      default: ej
+      default: ejplatform
       required: true
       type: password
-      
+    - variable: hostname
+      label: Hostname of the website (e.g.: ejplatform.org)
+      default: ejplatform.org
+      required: true
+      type: string
+    - variable: country
+      label: Locale for the installation
+      default: Brasil
+      required: true
+      type: string
+    - variable: debug
+      label: Enable DEBUG=true settings in Django?
+      description: WARNING: only enable debug mode in staging environments.
+      default: false
+      required: true
+      type: boolean
+
 services:
   loadbalancer:
     scale: 1

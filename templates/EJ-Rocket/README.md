@@ -1,0 +1,1 @@
+Standard stack configuration for the EJ Platform.

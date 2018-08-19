@@ -2,6 +2,7 @@ version: '2'
 
 volumes:
   database:
+  mongo:
   media:
   conf:
 
@@ -11,10 +12,10 @@ services:
     expose:
     - 80:80/tcp
     labels:
-      rap.le_email: help@ejplatform.org
+      rap.le_email: help@${hostname}
       rap.le_test: 'false'
-      rap.le_host: ejplatform.org
-      rap.host: ejplatform.org
+      rap.le_host: ${hostname}
+      rap.host: ${hostname}
       rap.client_max_body_size: 200m
       io.rancher.container.create_agent: 'true'
       io.rancher.container.agent.role: environmentAdmin
@@ -31,9 +32,15 @@ services:
   web: &web
     image: ejplatform/web:latest
     environment:
-      DJANGO_DB_URL: psql://ej:${database_password}@postgres:5432/ej
-      DJANGO_ALLOWED_HOSTS: ejplatform.org
+      DJANGO_DB_URL: psql://ej:"${database_password}"@postgres:5432/ej
+      DJANGO_ALLOWED_HOSTS: ${hostname}
       DJANGO_DEBUG: 'true'
+      EJ_ROCKETCHAT_INTEGRATION: 'true'
+      EJ_ROCKETCHAT_URL: talks.${hostname}
+      EJ_ROCKETCHAT_PRIVATE_URL: rocketchat:3000
+      HOSTNAME: ${hostname}
+      COUNTRY: ${country}
+      DEBUG: ${debug}
     volumes:
       - media:/app/local/:nocopy
     links:
@@ -46,7 +53,6 @@ services:
 
   rescue:
     << : *web
-    restart: once
     command: bash
 
   redis:
@@ -60,3 +66,20 @@ services:
       POSTGRES_PASSWORD: ${database_password}
     volumes:
       - database:/var/lib/postgresql/data
+
+  # Rocketchat services
+  mongo:
+    image: mongo
+    volumes:
+      - mongo:/data/db
+
+  rocketchat:
+    image: rocketchat/rocket.chat:latest
+    environment:
+      MONGO_URL: mongodb://mongo:27017/rocketchat
+    labels:
+      rap.port: 3000
+      rap.le_host: talks.${hostname}
+      rap.host: talks.${hostname}
+    ports:
+      - 3001:3000/tcp

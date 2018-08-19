@@ -1,8 +1,0 @@
-name: EJ Platform
-description: |
-  This is the standard configuration of the EJ platform similar to the one found
-  in https://ejplatform.org.
-version: 0.1-rancher1
-category: Applications
-projectURl: "https://github.com/ejplatform/ej-server/"
-license: AGPL v3
