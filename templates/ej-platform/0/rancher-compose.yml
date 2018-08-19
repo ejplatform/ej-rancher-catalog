@@ -1,13 +1,13 @@
 version: '2'
 
 catalog:
-  name: EJ Platform with Rocketchat
+  name: EJ Platform
   description: |
-    EJ Platform Environment with Rocketchat integration
+    EJ Platform Environment
   version: 0.1-rancher0
   minimum_rancher_version: v1.0.0
   maintainer: "Fábio Macêdo Mendes <fabiommendes@gmail.com>"
-  uuid: ejplatform-rc-0
+  uuid: ejplatform
   questions:
     - variable: database_password
       label: What is the database password?
