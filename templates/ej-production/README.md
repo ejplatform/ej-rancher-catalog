@@ -1,1 +1,1 @@
-EJ-Production
+EJ Platform
