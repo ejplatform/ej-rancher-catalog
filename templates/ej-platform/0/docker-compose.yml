@@ -16,7 +16,7 @@ services:
     expose:
     - 80:80/tcp
     labels:
-      rap.le_email: help@${hostname}
+      rap.le_email: dev@${hostname}
       rap.le_test: 'false'
       rap.le_host: ${hostname}
       rap.host: ${hostname}

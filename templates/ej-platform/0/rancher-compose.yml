@@ -73,7 +73,7 @@ services:
     scale: 1
     start_on_create: true
 
-  bash:
+  rescue:
     scale: 1
     start_on_create: true
 
