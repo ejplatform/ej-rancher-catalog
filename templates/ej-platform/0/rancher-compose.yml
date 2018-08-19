@@ -9,24 +9,27 @@ catalog:
   maintainer: "Fábio Macêdo Mendes <fabiommendes@gmail.com>"
   uuid: ejplatform
   questions:
-    - variable: database_password
-      label: What is the database password?
-      default: ejplatform
-      required: true
-      type: password
     - variable: hostname
-      label: Hostname of the website (e.g.: ejplatform.org)
+      label: Hostname
+      description: "Hostname of the website (e.g.: ejplatform.org)"
       default: ejplatform.org
       required: true
       type: string
+    - variable: database_password
+      label: Database password
+      description: What is the database password?
+      default: ejplatform
+      required: true
+      type: password
     - variable: country
-      label: Locale for the installation
+      label: Country
+      description: Controls localization settings
       default: Brasil
       required: true
       type: string
     - variable: debug
-      label: Enable DEBUG=true settings in Django?
-      description: WARNING: only enable debug mode in staging environments.
+      label: Enable debug settings?
+      description: "WARNING: only enable debug mode in staging environments."
       default: false
       required: true
       type: boolean
