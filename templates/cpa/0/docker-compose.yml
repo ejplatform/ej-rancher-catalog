@@ -95,5 +95,3 @@ services:
       rap.le_host: talks.${hostname}
       rap.host: talks.${hostname}
       io.rancher.scheduler.affinity: ${rancher_host}
-    ports:
-      - 3001:3000/tcp
