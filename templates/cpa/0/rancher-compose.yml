@@ -49,6 +49,17 @@ catalog:
         - rancher-nfs
 
 services:
+  lb:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      port_rules:
+      - priority: 1
+        protocol: http
+        service: nginx
+        source_port: 80
+        target_port: 80
   nginx:
     scale: 1
     start_on_create: true
