@@ -31,6 +31,8 @@ services:
       DJANGO_DB_URL: psql://ej:${database_password}@postgres:5432/ej
       DJANGO_ALLOWED_HOSTS: ${hostname}
       DJANGO_DEBUG: 'true'
+      EJ_ROCKETCHAT_INTEGRATION: 'true'
+      EJ_ROCKETCHAT_URL: talks.${hostname}
       HOSTNAME: ${hostname}
       COUNTRY: ${country}
       DEBUG: ${debug}
